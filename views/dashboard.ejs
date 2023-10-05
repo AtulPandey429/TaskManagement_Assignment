@@ -1,0 +1,120 @@
+<%- include('header.ejs') %>
+<title>Task Dashboard</title>
+<style>
+  /* Center the content vertically and horizontally */
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Set background color */
+  }
+
+  header {
+    background-color: #343a40; /* Header background color */
+    color: white; /* Header text color */
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  main {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 800px; /* Limit content width */
+  }
+
+  .task-list h2 {
+    margin-top: 0;
+  }
+
+  .list-group-item {
+    margin: 10px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  .list-group-item h3 {
+    margin-top: 0;
+  }
+
+  .btn {
+    margin-right: 10px;
+  }
+
+  .task-form {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1 class="text-center">Welcome to Your Dashboard</h1>
+    <div class="text-center">
+      <a href="/auth/logout" class="btn btn-danger">Logout</a>
+    </div>
+  </header>
+  <main>
+    <section class="task-list">
+      <h2>Your Tasks</h2>
+      <ul class="list-group">
+        <% tasks.forEach(task => { %>
+        <li class="list-group-item">
+          <h3><%= task.title %></h3>
+          <p><%= task.description %></p>
+          <p>
+            <strong>Due Date:</strong> <%= task.dueDate ?
+            task.dueDate.toDateString() : 'Not specified' %>
+          </p>
+          <p><strong>Status:</strong> <%= task.status %></p>
+
+          <!-- Edit button with a link to the edit page -->
+          <a href="/tasks/edit/<%= task._id %>" class="btn btn-primary">Edit</a>
+
+          <!-- Delete button with a form to submit a delete request -->
+          <form action="/tasks/delete/<%= task._id %>" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+    <section class="task-form">
+      <h2>Create a New Task</h2>
+      <form action="/tasks/create" method="POST">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="4" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="dueDate">Due Date</label>
+          <input type="date" id="dueDate" name="dueDate" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status" class="form-control">
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Create Task</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
