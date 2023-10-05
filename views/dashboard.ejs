@@ -115,6 +115,24 @@
         <button type="submit" class="btn btn-success">Create Task</button>
       </form>
     </section>
+    
+    <!-- Display tasks below the form -->
+    <section class="task-list">
+      <h2>Additional Section for Task Display</h2>
+      <!-- Loop through tasks and display them here -->
+      <% tasks.forEach(task => { %>
+        <div class="list-group-item">
+          <!-- Display task information -->
+          <h3><%= task.title %></h3>
+          <p><%= task.description %></p>
+          <p>
+            <strong>Due Date:</strong> <%= task.dueDate ?
+            task.dueDate.toDateString() : 'Not specified' %>
+          </p>
+          <p><strong>Status:</strong> <%= task.status %></p>
+        </div>
+      <% }) %>
+    </section>
   </main>
 </body>
 </html>

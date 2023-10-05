@@ -6,12 +6,12 @@ const db = require("./config/database");
 const flash = require('connect-flash');
 const authRoutes = require("./routes/auth");
 const taskRoutes = require("./routes/tasks");
-const path = require("path"); // Add this line to require the 'path' module
+const path = require("path");
 
 db();
 const app = express();
 app.set("view engine", "ejs");
-app.set('views', path.join(__dirname, 'views')); // Set the views directory
+app.set('views', path.join(__dirname, 'views'));
 
 const port = process.env.PORT || 3000;
 
@@ -28,6 +28,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+// Define a route for the login/signup page
+app.get("/", (req, res) => {
+  res.render("home.ejs"); // Render the login_signup.ejs template
+});
+
 
 // Routes
 app.use("/auth", authRoutes);
