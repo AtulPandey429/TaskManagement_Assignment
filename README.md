@@ -47,9 +47,9 @@ Before you begin, ensure you have the following prerequisites installed:
 4. Create a `.env` file in the project's root directory. Define the following environment variables in the `.env` file:
 
    ```env
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/taskmanagement
-   SECRET_KEY=your-secret-key
+   PORT
+   URL
+   SECRET_KEY
    ```
 
    Replace `your-secret-key` with a secret key of your choice for session management.
@@ -66,7 +66,7 @@ Before you begin, ensure you have the following prerequisites installed:
 
 The project follows a standard Express.js application structure with additional directories for views and static assets. Here's an overview of the project structure:
 
-- `app.js`: The main application entry point.
+- `server.js`: The main application entry point.
 - `config/`: Configuration files for Passport.js and other settings.
 - `models/`: MongoDB data models for tasks and users.
 - `public/`: Static assets such as stylesheets and client-side JavaScript.
